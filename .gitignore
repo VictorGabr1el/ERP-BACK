@@ -1,1 +1,11 @@
 node_modules
+# Dependências do Node
+
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Outras configurações
+.DS_Store
