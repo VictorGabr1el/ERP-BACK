@@ -1,53 +1,50 @@
 // controllers/userController.js
+// controllers/userController.js
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
 
 // Função para criar um novo usuário
-export const createUser = async (req, res) => {
-  try {
-    const {
-      store,
-      name,
-      password,
-      admin,
-      role,
-      cashier,
-      initial_screen,
-      theme,
-      group,
-      login_time,
-      active,
-      menu_tabs,
-      token,
-      employee_id,
-      otp_token,
-    } = req.body;
+export const createUser = async (userData) => {
+  const {
+    name,
+    password,
+    store,
+    admin,
+    role,
+    cashier,
+    initial_screen,
+    theme,
+    group,
+    login_time,
+    active,
+    menu_tabs,
+    token,
+    employee_id,
+    otp_token,
+  } = userData;
 
-    // Criptografa a senha
-    const hashedPassword = await bcrypt.hash(password, 10);
+  // Criptografa a senha antes de salvar
+  const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = await User.create({
-      store,
-      name,
-      password: hashedPassword,
-      admin,
-      role,
-      cashier,
-      initial_screen,
-      theme,
-      group,
-      login_time,
-      active,
-      menu_tabs,
-      token,
-      employee_id,
-      otp_token,
-    });
+  const user = await User.create({
+    name,
+    password: hashedPassword,
+    store,
+    admin: admin || false,
+    role,
+    cashier: cashier || false,
+    initial_screen: initial_screen || false,
+    theme,
+    group,
+    login_time,
+    active: active || false,
+    menu_tabs,
+    token,
+    employee_id,
+    otp_token,
+  });
 
-    res.status(201).json(user);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
+  return user;
 };
 
 // Função para obter todos os usuários

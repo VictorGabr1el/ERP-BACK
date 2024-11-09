@@ -10,13 +10,13 @@ export const validateUser = [
 
   body("name")
     .isLength({ min: 1, max: 20 })
-    .withMessage("Name must be between 1 and 20 characters")
+    .withMessage("Name must be between 1 and 32 characters")
     .isString()
     .withMessage("Name must be a string"),
 
   body("password")
-    .isLength({ min: 8, max: 32 })
-    .withMessage("Password must be between 8 and 32 characters")
+    .isLength({ min: 8, max: 64 })
+    .withMessage("Password must be between 8 and 64 characters")
     .isString()
     .withMessage("Password must be a string"),
 
@@ -45,8 +45,6 @@ export const validateUser = [
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-
-    console.log(req.body);
     next();
   },
 ];

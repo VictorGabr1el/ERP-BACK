@@ -24,5 +24,9 @@
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.5",
     "winston": "^3.16.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.7"
   }
 }

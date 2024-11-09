@@ -1,31 +1,28 @@
 // controllers/authController.js
-import User from "../models/User.js";
+import { createUser } from "./userController.js";
+import User from "../models/User.js"; // Certifique-se de importar User aqui
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import { body, validationResult } from "express-validator";
+import { validationResult } from "express-validator";
 
 dotenv.config();
 
 const secretKey = "process.env.SECRET_KEY";
+console.log(secretKey);
 
 export const register = [
-  body("name").isString().withMessage("Name must be a string"),
-  body("password")
-    .isLength({ min: 8 })
-    .withMessage("Password must be at least 8 characters long"),
-
+  // Middleware validateUser aplicado para validação
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
     try {
-      const { name, password } = req.body;
-      const hashedPassword = await bcrypt.hash(password, 10);
-      const user = await User.create({ name, password: hashedPassword });
-      res.status(201).json({ message: "User created successfully" });
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+
+      const user = await createUser(req.body);
+
+      res.status(201).json({ message: "User created successfully", user });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
@@ -33,15 +30,8 @@ export const register = [
 ];
 
 export const login = [
-  body("name").isString().withMessage("Name must be a string"),
-  body("password").isString().withMessage("Password is required"),
-
+  // Validações
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
     try {
       const { name, password } = req.body;
       const user = await User.findOne({ where: { name } });
