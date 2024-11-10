@@ -1,7 +1,7 @@
-// validators/settlementsValidator.js
+// validators/agreementsInstallmentsValidator.js
 import { body } from "express-validator";
 
-export const settlementValidator = [
+export const createAgreementInstallmentValidator = [
   body("code")
     .isLength({ min: 1, max: 8 })
     .withMessage("Code is required and should be max 8 characters"),
@@ -15,9 +15,16 @@ export const settlementValidator = [
   body("value")
     .isDecimal({ decimal_digits: "0,2" })
     .withMessage("Value must be a decimal with up to 2 decimal places"),
-  body("receiptDate")
+  body("delay")
     .optional()
-    .isDate()
-    .withMessage("Receipt date must be a valid date if provided"),
-  body("entry").optional().isIn(["0", "1"]).withMessage("Entry must be 0 or 1"),
+    .isInt()
+    .withMessage("Delay must be an integer if provided"),
+  body("interestValue")
+    .optional()
+    .isDecimal({ decimal_digits: "0,2" })
+    .withMessage("Interest value must be a decimal"),
+  body("debitValue")
+    .optional()
+    .isDecimal({ decimal_digits: "0,2" })
+    .withMessage("Debit value must be a decimal"),
 ];

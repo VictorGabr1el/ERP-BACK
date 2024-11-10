@@ -12,7 +12,7 @@ const User = sequelize.define(
       autoIncrement: true,
     },
     store: {
-      type: DataTypes.STRING(3),
+      type: DataTypes.DECIMAL(3),
       allowNull: false,
     },
     name: {

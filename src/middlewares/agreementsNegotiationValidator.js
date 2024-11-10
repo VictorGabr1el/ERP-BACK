@@ -1,7 +1,7 @@
-// validators/settlementsValidator.js
+// validators/agreementsNegotiationValidator.js
 import { body } from "express-validator";
 
-export const settlementValidator = [
+export const agreementNegotiationValidator = [
   body("code")
     .isLength({ min: 1, max: 8 })
     .withMessage("Code is required and should be max 8 characters"),
@@ -19,5 +19,4 @@ export const settlementValidator = [
     .optional()
     .isDate()
     .withMessage("Receipt date must be a valid date if provided"),
-  body("entry").optional().isIn(["0", "1"]).withMessage("Entry must be 0 or 1"),
 ];

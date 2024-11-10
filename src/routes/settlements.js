@@ -2,19 +2,19 @@
 import express from "express";
 import {
   createSettlement,
-  getSettlements,
+  getAllSettlements,
   getSettlementById,
   updateSettlement,
   deleteSettlement,
 } from "../controllers/settlementController.js";
-import { validateSettlement } from "../middlewares/validateSettlement.js";
+import { settlementValidator } from "../middlewares/validateSettlement.js";
 
-const router = express.Router();
+const settementRouter = express.Router();
 
-router.post("/", validateSettlement, createSettlement);
-router.get("/", getSettlements);
-router.get("/:id", getSettlementById);
-router.put("/:id", validateSettlement, updateSettlement);
-router.delete("/:id", deleteSettlement);
+settementRouter.post("/", settlementValidator, createSettlement);
+settementRouter.get("/", getAllSettlements);
+settementRouter.get("/:id", getSettlementById);
+settementRouter.put("/:id", settlementValidator, updateSettlement);
+settementRouter.delete("/:id", deleteSettlement);
 
-export default router;
+export default settementRouter;
