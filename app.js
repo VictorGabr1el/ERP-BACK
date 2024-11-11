@@ -11,6 +11,7 @@ import agreementRouter from "./src/routes/Agreements.js";
 import agreementsNegotiationRouter from "./src/routes/agreementsNegotiation.js";
 import settlementsInstallmentsRouter from "./src/routes/settlementsInstallments.js";
 import settlementsNegotiationsRouter from "./src/routes/settlementsNegotiation.js";
+import transferRouter from "./src/routes/transferRouter.js";
 const app = express();
 app.use(express.json());
 
@@ -23,6 +24,7 @@ app.use("/agreements-negotiations", agreementsNegotiationRouter);
 app.use("/settements", settementRouter);
 app.use("/settements-installments", settlementsInstallmentsRouter);
 app.use("/settements-negotiations", settlementsNegotiationsRouter);
+app.use("/transfer", transferRouter);
 
 app.use(morgan("combined"));
 app.use(errorHandler);
