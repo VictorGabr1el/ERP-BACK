@@ -1,7 +1,7 @@
 // /routes/transferRoutes.js
 
 import { validationResult } from "express-validator";
-import { validateTransfer } from "../validators/transferValidator";
+import { validateTransfer } from "../validators/transferValidator.js";
 import express from "express";
 import {
   cancelTransfer,

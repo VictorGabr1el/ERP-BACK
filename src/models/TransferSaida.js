@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js"; // substitua com sua configuração de conexão
 
 const TransferSaida = sequelize.define(
