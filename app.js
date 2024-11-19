@@ -14,6 +14,11 @@ import settlementsNegotiationsRouter from "./src/routes/settlementsNegotiation.j
 import transferRouter from "./src/routes/transferRouter.js";
 import routesRouter from "./src/routes/routes.js";
 import transferenciaRascunhoRouter from "./src/routes/transferenciaRascunhoRoutes.js";
+import salesRouter from "./src/routes/salesRoutes.js";
+import itemStockRouter from "./src/routes/itemStockRoutes.js";
+import inventoryRouter from "./src/routes/inventoryRoutes.js";
+import inventoryItemsRouter from "./src/routes/inventoryItemsRoutes.js";
+
 const app = express();
 app.use(express.json());
 
@@ -29,6 +34,11 @@ app.use("/settements-negotiations", settlementsNegotiationsRouter);
 app.use("/transfer", transferRouter);
 app.use("/", routesRouter);
 app.use("/rascunho", transferenciaRascunhoRouter);
+app.use("/sales", salesRouter);
+app.use("/item-stock", itemStockRouter);
+app.use("/inventory", inventoryRouter);
+app.use("/inventory-items", inventoryItemsRouter);
+app.use("/validate-discrepancy", inventoryItemsRouter);
 
 app.use(morgan("combined"));
 app.use(errorHandler);

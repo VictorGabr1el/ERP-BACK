@@ -76,7 +76,7 @@ const Items = sequelize.define(
     specificProduct: DataTypes.INTEGER,
     priceChangeAllowed: DataTypes.BOOLEAN,
     descriptionChangeAllowed: DataTypes.BOOLEAN,
-    stockControl: DataTypes.BOOLEAN,
+    stockControl: { type: DataTypes.BOOLEAN, defaultValue: true },
     additionalInfo: DataTypes.STRING(200),
     manufacturer: DataTypes.STRING(4),
     priceChangePermission: DataTypes.BOOLEAN,
@@ -115,7 +115,7 @@ const Items = sequelize.define(
     batchControl: DataTypes.BOOLEAN,
   },
   {
-    tableName: "items",
+    tableName: "ITEMS",
     timestamps: true,
   }
 );
