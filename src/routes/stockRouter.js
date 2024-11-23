@@ -1,13 +1,14 @@
-import { Router } from "express";
-import stockController from "../controllers/stockController.js";
-import stockValidator from "../validators/stockValidator.js";
+// routes/stock.js
 
-const router = Router();
+import express from "express";
+import StockController from "../controllers/stockController.js";
 
-router.post(
-  "/validate-discrepancy",
-  stockValidator.validateStockPayload,
-  stockController.validateStockDiscrepancy
+const stockRouter = express.Router();
+
+stockRouter.post("/move", StockController.moveStock);
+stockRouter.post(
+  "/validate-stock-discrepancy",
+  StockController.validateStockDiscrepancy
 );
 
-export default router;
+export default stockRouter;

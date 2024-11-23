@@ -14,16 +14,19 @@ import {
 
 const settlementsInstallmentsRouter = express.Router();
 
-settlementsInstallmentsRouter
-  .get("/", getAllSettlementsInstallments)
-  .post(createSettlementInstallmentValidator, createSettlementInstallment)
+settlementsInstallmentsRouter.get("/", getAllSettlementsInstallments);
+settlementsInstallmentsRouter.post(
+  "/",
+  createSettlementInstallmentValidator,
+  createSettlementInstallment
+);
 
-  .put(
-    "/:id",
-    updateSettlementInstallmentValidator,
-    updateSettlementInstallment
-  )
-  .delete(deleteSettlementInstallment)
-  .get(findByPkSettlementInstallment);
+settlementsInstallmentsRouter.put(
+  "/:id",
+  updateSettlementInstallmentValidator,
+  updateSettlementInstallment
+);
+settlementsInstallmentsRouter.delete("/:id", deleteSettlementInstallment);
+settlementsInstallmentsRouter.get("/:id", findByPkSettlementInstallment);
 
 export default settlementsInstallmentsRouter;
