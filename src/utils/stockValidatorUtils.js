@@ -57,3 +57,35 @@ export const validateAccountingVsPhysicalStock = (item) => {
 
   return { isValid: true, message: "Stock levels are consistent." };
 };
+
+/**
+ * Validates if the item is locked.
+ * @param {object} item - The item object to be validated.
+ * @returns {object} - Validation result { valid: boolean, message: string }
+ */
+export const validateItemLock = (item) => {
+  if (item.locked) {
+    return {
+      valid: false,
+      message: "Item is currently locked and cannot be moved.",
+    };
+  }
+
+  return {
+    valid: true,
+    message: "Item is not locked.",
+  };
+};
+
+/**
+ * Valida se o produto está ativo antes de processar ações.
+ * @param {object} item - The item object to be validated.
+ * @returns {Object} - Validation result { isValid: boolean, message: string }
+ */
+export const validateProductIsActive = async (item) => {
+  if (!item.active) {
+    return { isValid: false, message: "Inactive or discontinued product." };
+  }
+
+  return { isValid: true, message: "Product is active." };
+};

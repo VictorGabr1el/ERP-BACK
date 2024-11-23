@@ -25,10 +25,16 @@ const Items = sequelize.define(
       type: DataTypes.DECIMAL(8, 2),
       defaultValue: 0,
     },
+    serial: DataTypes.STRING(60),
     classification: DataTypes.STRING(4),
     active: {
       type: DataTypes.BOOLEAN,
       allowNull: true,
+    },
+    locked: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
     },
     manufacturerCode: DataTypes.STRING(20),
     photo: DataTypes.STRING(32),

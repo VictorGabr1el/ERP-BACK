@@ -33,7 +33,6 @@ app.use("/sales", salesRouter);
 app.use("/item-stock", itemStockRouter);
 app.use("/inventory", inventoryRouter);
 app.use("/inventory-items", inventoryItemsRouter);
-app.use("/validate-discrepancy", inventoryItemsRouter);
 app.use("/stock", stockRouter);
 
 app.use(morgan("combined"));

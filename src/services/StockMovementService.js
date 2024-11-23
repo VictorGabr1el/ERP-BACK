@@ -4,9 +4,12 @@ import sequelize from "../config/database.js";
 import ItemStock from "../models/itemStock.js";
 import {
   validateAccountingVsPhysicalStock,
+  validateItemLock,
+  validateProductIsActive,
   validateStockLimits,
 } from "../utils/stockValidatorUtils.js";
-
+import { validateSerialControl } from "../utils/serialValidator.js";
+import { validateProductExpiry } from "../utils/expiryValidator.js";
 const stockMovimentService = {
   /**
    * Movimenta estoque para entrada/saída.
@@ -28,6 +31,35 @@ const stockMovimentService = {
         throw new Error("Item not found.");
       }
 
+      // Validate if the item is actived
+      const itemIsActived = validateProductIsActive(item);
+
+      if (!itemIsActived.isValid) {
+        throw new Error(itemIsActived.message);
+      }
+
+      // Validate if the item is locked
+      const lockValidation = validateItemLock(item);
+
+      if (!lockValidation.valid) {
+        throw new Error(lockValidation.message);
+      }
+
+      if (item.useSerial) {
+        const serialValidation = validateSerialControl(item);
+        if (!serialValidation.valid) {
+          throw new Error(serialValidation.message);
+        }
+      }
+
+      if (item.expirationControl) {
+        const productExpiryValidation = validateProductExpiry(item);
+        if (!productExpiryValidation.valid) {
+          throw new Error(productExpiryValidation.message);
+        }
+      }
+
+      // Validate stock limit
       const limitValidation = validateStockLimits(item, quantityChange);
       if (!limitValidation.valid) {
         throw new Error(limitValidation.message);
@@ -38,7 +70,7 @@ const stockMovimentService = {
         throw new Error(discrepancyValidation.message);
       }
 
-      // Atualiza o estoque
+      // update stock
       item.stock += quantityChange;
       await item.save({ transaction });
 
